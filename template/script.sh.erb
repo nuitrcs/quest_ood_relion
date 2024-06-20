@@ -1,0 +1,48 @@
+#!/usr/bin/env bash 
+  
+# Set working directory to HOME directory 
+cd "${HOME}"
+
+# Check the OS of the Contianer
+OS_NAME=`grep -E '^(NAME)=' /etc/os-release`
+
+#
+# Launch Xfce Window Manager and Panel
+#
+
+if [[ $OS_NAME =~ "Ubuntu" ]]
+then
+  (
+  export XDG_CONFIG_HOME="<%= session.staged_root.join("config") %>"
+  export XDG_DATA_HOME="<%= session.staged_root.join("share") %>"
+  export XDG_CACHE_HOME="$(mktemp -d)"
+  eval $(dbus-launch --sh-syntax)
+  xfwm4 --compositor=off --sm-client-disable &
+  xsetroot -solid "#D3D3D3"
+  xfsettingsd --daemon --sm-client-disable
+  xfce4-panel --sm-client-disable
+  ) &
+else
+  (
+  export SEND_256_COLORS_TO_REMOTE=1
+  export XDG_CONFIG_HOME="<%= session.staged_root.join("config") %>"
+  export XDG_DATA_HOME="<%= session.staged_root.join("share") %>"
+  export XDG_CACHE_HOME="$(mktemp -d)"
+  module restore
+  set -x
+  xfwm4 --compositor=off --daemon --sm-client-disable
+  xsetroot -solid "#D3D3D3"
+  xfsettingsd --sm-client-disable
+  xfce4-panel --sm-client-disable
+  ) &
+fi
+
+
+set -x
+# Change into relion project directory
+cd '<%= context.relion_project_directory == "" ? "${HOME}" : context.relion_project_directory %>'
+
+### Place Command To Run Program Below Here ###
+module purge
+module load relion/5.0
+relion

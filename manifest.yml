@@ -1,0 +1,11 @@
+---
+name: RELION
+icon: fa://desktop
+category: Interactive Apps
+subcategory: GUIs
+role: batch_connect
+description: |
+  This app will launch the [RELION] GUI on the [Quest cluster].
+
+  [RELION]: https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=2234
+  [Quest cluster]: https://www.it.northwestern.edu/departments/it-services-support/research/computing/quest/index.html
