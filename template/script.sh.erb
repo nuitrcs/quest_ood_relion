@@ -3,6 +3,9 @@
 # Set working directory to HOME directory 
 cd "${HOME}"
 
+# Clear environment
+module purge
+
 # Check the OS of the Contianer
 OS_NAME=`grep -E '^(NAME)=' /etc/os-release`
 
@@ -42,7 +45,13 @@ set -x
 # Change into relion project directory
 cd '<%= context.relion_project_directory == "" ? "${HOME}" : context.relion_project_directory %>'
 
-### Place Command To Run Program Below Here ###
-module purge
-module load relion/5.0
+
+# Start RELION
+#
+
+# Load the required environment
+module load <%= context.version %>
+module list
+
+# Launch RELION
 relion

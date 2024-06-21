@@ -18,7 +18,7 @@ batch_connect:
     CTRSCRIPT
 
     # What container are we using
-    export container_image="<%= version %>"
+    export container_image="/software/openondemand/matlab/matlab-ood.sif"
 
     # All our software in /software so have to bind that
     export SING_BINDS="--bind /software:/software --bind /hpc/software:/hpc/software"
