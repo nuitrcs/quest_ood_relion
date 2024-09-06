@@ -54,4 +54,6 @@ module load <%= context.version %>
 module list
 
 # Launch RELION
-relion
+relion &
+
+sleep $(($SLURM_JOB_END_TIME - $SLURM_JOB_START_TIME))
